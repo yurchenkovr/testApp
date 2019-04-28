@@ -8,8 +8,8 @@ var (
 )
 
 type gResponse struct {
-	key   int `json:"key`
-	value int `json:"value"`
+	Key   int `json:"key"`
+	Value int `json:"value"`
 }
 
 type Job struct {

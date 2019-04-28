@@ -10,8 +10,8 @@ import (
 var JobQueue chan Job
 
 type data struct {
-	key   int `json:"key"`
-	value int `json:"value"`
+	Key   int `json:"key"`
+	Value int `json:"value"`
 }
 
 type Job struct {
@@ -28,7 +28,7 @@ func (data *data) doJob() {
 }
 
 func makeRequest(content []byte) {
-	resp, err := http.Post("http://localhost:8080/", "application/json", bytes.NewBuffer(content))
+	resp, err := http.Post("http://localhost:8081/", "application/json", bytes.NewBuffer(content))
 	if err != nil {
 		log.Println("ERROR: ", err)
 	}

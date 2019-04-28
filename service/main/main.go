@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	MaxWorker int = 8
-	MaxQueue  int = 1000
+	MaxWorker int = 2
+	MaxQueue  int = 20
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 	handler.HandleFunc("/", Collector)
 
 	s := &http.Server{
-		Addr:    ":8080",
+		Addr:    ":8081",
 		Handler: handler,
 	}
 
@@ -25,12 +25,9 @@ func main() {
 	dispatcher := NewDispatcher(MaxWorker)
 	dispatcher.Run()
 
-	//http.HandleFunc("/work", Collector)
-
 	if err := s.ListenAndServe(); err != nil {
 		fmt.Println(err.Error())
 	}
-	/*if err:= http.ListenAndServe(HTTPAddr,nil); err!= nil {
-		fmt.Println(err.Error())
-	}*/
+
+	fmt.Println("END")
 }
