@@ -3,14 +3,20 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
-const (
-	MaxWorker int = 2
-	MaxQueue  int = 20
+var (
+	MaxWorker int
+	MaxQueue  int
 )
 
 func main() {
+	fmt.Print("Enter count of workers: ")
+	fmt.Scanf("%d", &MaxWorker)
+	fmt.Print("Enter size of queue: ")
+	fmt.Scanf("%d", &MaxQueue)
+
 	JobQueue = make(chan Job, MaxQueue)
 
 	handler := http.NewServeMux()
@@ -22,12 +28,11 @@ func main() {
 	}
 
 	fmt.Println("Starting the dispatcher")
+	fmt.Println(time.Now())
 	dispatcher := NewDispatcher(MaxWorker)
 	dispatcher.Run()
 
 	if err := s.ListenAndServe(); err != nil {
 		fmt.Println(err.Error())
 	}
-
-	fmt.Println("END")
 }
