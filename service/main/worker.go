@@ -20,7 +20,7 @@ func (w Worker) Start() {
 			w.WorkerPool <- w.JobChannel
 			select {
 			case job := <-w.JobChannel:
-				job.gResponse.doJob()
+				job.data.DoJob()
 			case <-w.quit:
 				return
 			}

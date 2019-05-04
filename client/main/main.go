@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"math/rand"
-	"strconv"
 	"time"
 )
 
@@ -22,16 +20,8 @@ func main() {
 
 	JobQueue = make(chan Job, MaxQueue)
 
-	//limiter := time.Tick(time.Duration(float64(time.Minute) / float64(countOfEvents)))
-	//fmt.Println("timeout: ", <-limiter)
-	t := float64(60.0 / float64(countOfEvents))
-	t1 := strconv.FormatFloat(t, 'f', 8, 64) + "s"
-	timeout, err := (time.ParseDuration(t1))
-	fmt.Println(t1)
-	fmt.Println("timeout: ", timeout)
-	if err != nil {
-		log.Println("ERROR", err)
-	}
+	limiter := time.Tick(time.Duration(float64(time.Minute) / float64(countOfEvents)))
+
 	fmt.Println(time.Now())
 
 	dispatcher := NewDispatcher(MaxWorker)
@@ -42,8 +32,7 @@ func main() {
 		job := Job{data: data}
 		JobQueue <- job
 
-		time.Sleep(timeout)
-		//<-limiter
+		<-limiter
 	}
 
 	time.Sleep(time.Minute)

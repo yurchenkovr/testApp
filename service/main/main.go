@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 )
 
 var (
@@ -28,7 +27,6 @@ func main() {
 	}
 
 	fmt.Println("Starting the dispatcher")
-	fmt.Println(time.Now())
 	dispatcher := NewDispatcher(MaxWorker)
 	dispatcher.Run()
 

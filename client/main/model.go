@@ -18,7 +18,7 @@ type Job struct {
 	data data
 }
 
-func (data *data) doJob() {
+func (data *data) DoJob() {
 	content, err := json.Marshal(data)
 	if err != nil {
 		log.Println("ERROR: ", err)

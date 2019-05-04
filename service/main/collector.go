@@ -11,13 +11,13 @@ func Collector(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	var content gResponse
+	var content data
 	err := json.NewDecoder(r.Body).Decode(&content)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	defer r.Body.Close()
-	go func(content gResponse) {
+	go func(content data) {
 		job := Job{content}
 		JobQueue <- job
 	}(content)
